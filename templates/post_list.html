@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-
+{% load static %}
 {% block title %}Post List{% endblock %}
 
 {% block main %}
@@ -25,9 +25,15 @@
             <tbody>
                 {% for post in posts %}
                 <tr>
-                    <th scope="row">{{post.id}}</th>
+                    <th scope="row">{{forloop.counter}}</th>
                     <td>{{post.title}}</td>
-                    <td>Post Image is here</td>
+                    <td>
+                        {% if post.image %}
+                        <img style="width: 100px;height: auto;" src="{{post.image.url}}">
+                        {% else %}
+                        <img style="width: 100px;height: auto;" src="{% static 'images/placeholder.png' %}">
+                        {% endif %}
+                    </td>
                     <td>{{post.content}}</td>
                     <td>
                         <a href="{% url 'post_update' post.id %}" class="btn btn-warning">Update</a>

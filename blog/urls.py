@@ -28,7 +28,7 @@ urlpatterns = (
         path("post/list/", views.post_list, name="post_list"),
         path("post/create/", views.post_create, name="post_create"),
         path("post/update/<uuid:pk>/", views.post_update, name="post_update"),
-        path("post/delete/", views.post_delete, name="post_delete"),
+        path("post/delete/<uuid:pk>/", views.post_delete, name="post_delete"),
         path("post/details/", views.post_details, name="post_details"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -13,18 +13,21 @@
         </div>
     </div>
     <div class="card-body">
-        <form class="row">
+        <form class="row" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="mb-3 col-12">
                 <label class="form-label">Title</label>
-                <input type="text" class="form-control" placeholder="Enter post title">
+                <input type="text" name="title" value="{{post.title}}" class="form-control"
+                    placeholder="Enter post title">
             </div>
             <div class="mb-3 col-12">
                 <label class="form-label">Image</label>
-                <input type="file" class="form-control">
+                <input type="file" name="image" class="form-control">
             </div>
             <div class="mb-3 col-12">
                 <label class="form-label">Content</label>
-                <textarea rows="10" class="form-control" placeholder="Enter post content"></textarea>
+                <textarea rows="10" name="content" class="form-control"
+                    placeholder="Enter post content">{{post.content}}</textarea>
             </div>
             <div class="mb-3 col-12">
                 <button type="submit" class="btn btn-dark">Submit</button>

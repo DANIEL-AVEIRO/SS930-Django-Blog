@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
 
 {% block main %}
@@ -11,21 +11,27 @@
     <div class="card-body">
         <div class="row">
             <!-- card start -->
+            {% for post in posts %}
             <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Post title is here</h5>
+                        <h5 class="card-title mb-0">{{post.title}}</h5>
                     </div>
                     <div class="card-body">
-                        <img src="" class="card-img" alt="Post title is here">
-                        <p class="card-text mb-2">Post content is here</p>
-                        <p class="text-muted mb-0">Post created time is here</p>
+                        {% if post.image %}
+                        <img class="card-img" src="{{post.image.url}}">
+                        {% else %}
+                        <img class="card-img" src="{% static 'images/placeholder.png' %}">
+                        {% endif %}
+                        <p class="card-text mb-2">{{post.content}}</p>
+                        <p class="text-muted mb-0">{{post.created_at}}</p>
                     </div>
                     <div class="card-footer">
                         <a href="#" class="btn btn-dark">View More</a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
             <!-- card end -->
         </div>
     </div>

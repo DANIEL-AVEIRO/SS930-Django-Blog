@@ -5,7 +5,11 @@ from app.models import PostModel
 
 
 def index(request):
-    return render(request, "index.html")
+    posts = PostModel.objects.all().order_by("-created_at")
+    content = {
+        "posts": posts,
+    }
+    return render(request, "index.html", content)
 
 
 def post_create(request):
@@ -14,10 +18,12 @@ def post_create(request):
     if request.method == "POST":
         title = request.POST.get("title")
         content = request.POST.get("content")
+        image = request.FILES.get("image")
 
         post = PostModel.objects.create(
             title=title,
             content=content,
+            image=image,
         )
         post.save()
         return redirect("post_list")
@@ -41,15 +47,28 @@ def post_update(request, pk):
     if request.method == "POST":
         title = request.POST.get("title")
         content = request.POST.get("content")
+        image = request.FILES.get("image")
 
         post.title = title
         post.content = content
+        if image:
+            if post.image:
+                post.image.delete()
+            post.image = image
         post.save()
         return redirect("post_list")
 
 
-def post_delete(request):
-        return render(request, "post_delete.html")
+def post_delete(request, pk):
+    post = PostModel.objects.get(id=pk)
+    if request.method == "GET":
+        context = {
+            "post": post,
+        }
+        return render(request, "post_delete.html", context)
+    if request.method == "POST":
+        post.delete()
+        return redirect("post_list")
 
 
 def post_details(request):
