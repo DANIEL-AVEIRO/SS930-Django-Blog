@@ -30,8 +30,6 @@ urlpatterns = (
         path("post/update/<uuid:pk>/", views.post_update, name="post_update"),
         path("post/delete/<uuid:pk>/", views.post_delete, name="post_delete"),
         path("post/details/", views.post_details, name="post_details"),
-        
-        
         path("category/list/", views.category_list, name="category_list"),
         path("category/create/", views.category_create, name="category_create"),
         path("category/update/<uuid:pk>/", views.category_update, name="category_update"),
