@@ -24,6 +24,14 @@
                 <input type="file" name="image" class="form-control">
             </div>
             <div class="mb-3 col-12">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-control">
+                    {% for category in categories %}
+                    <option value="{{category.id}}">{{category.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3 col-12">
                 <label class="form-label">Content</label>
                 <textarea rows="10" name="content" class="form-control" placeholder="Enter post content"></textarea>
             </div>

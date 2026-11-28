@@ -14,16 +14,22 @@ def index(request):
 
 def post_create(request):
     if request.method == "GET":
-        return render(request, "post_create.html")
+        categories = CategoryModel.objects.all()
+        context = {
+            "categories": categories,
+        }
+        return render(request, "post_create.html", context)
     if request.method == "POST":
         title = request.POST.get("title")
         content = request.POST.get("content")
         image = request.FILES.get("image")
+        category = request.POST.get("category")
 
         post = PostModel.objects.create(
             title=title,
             content=content,
             image=image,
+            category_id=category,
         )
         post.save()
         return redirect("post_list")
